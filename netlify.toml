@@ -1,0 +1,14 @@
+# netlify.toml
+[build]
+  publish = "dist"         
+
+[dev]
+  command = "npm run dev"
+  targetPort = 5173
+  port = 8888
+  autoLaunch = true
+
+[[redirects]]
+  from = "/api/generate"
+  to = "/.netlify/functions/proxy-api"
+  status = 200

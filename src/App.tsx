@@ -11,6 +11,7 @@ export default function TextToSVGApp() {
   const [isGenerating, setIsGenerating] = useState(false)
   const [generatedSVG, setGeneratedSVG] = useState("")
   const [showSettings, setShowSettings] = useState(false)
+  const API_URL = import.meta.env.MODE === "development" ? import.meta.env.VITE_PUBLIC_API_URL : "/api/generate"
 
   const generateSVG = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -23,7 +24,7 @@ export default function TextToSVGApp() {
 
     setIsGenerating(true)
     try {
-      const response = await fetch(import.meta.env.VITE_PUBLIC_API_URL, {
+      const response = await fetch(API_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -32,7 +33,6 @@ export default function TextToSVGApp() {
           prompt,
         }),
       })
-      console.log("Response:", response)
 
       if (!response.ok) {
         throw new Error(`API 호출 실패: ${response.statusText}`)
