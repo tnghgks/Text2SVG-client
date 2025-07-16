@@ -2,7 +2,7 @@ import { useState, type FormEvent } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
-import { Loader2, Download, Sparkles, Settings, Eye } from "lucide-react"
+import { Loader2, Download, Sparkles, Eye } from "lucide-react"
 import { toast } from "sonner"
 import { Input } from "./components/ui/input"
 
@@ -10,7 +10,6 @@ export default function TextToSVGApp() {
   const [prompt, setPrompt] = useState("")
   const [isGenerating, setIsGenerating] = useState(false)
   const [generatedSVG, setGeneratedSVG] = useState("")
-  const [showSettings, setShowSettings] = useState(false)
   const API_URL = import.meta.env.MODE === "development" ? import.meta.env.VITE_PUBLIC_API_URL : "/api/generate"
 
   const generateSVG = async (e: FormEvent<HTMLFormElement>) => {
@@ -106,7 +105,7 @@ export default function TextToSVGApp() {
                   <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                   프롬프트 입력
                 </CardTitle>
-                <CardDescription>생성하고 싶은 SVG에 대한 간단한 단어로 적어주세요.</CardDescription>
+                <CardDescription>생성하고 싶은 SVG에 대해 간단한 영어 단어로 적어주세요.</CardDescription>
               </CardHeader>
               <CardContent >
                 <form onSubmit={generateSVG} className="space-y-4">
@@ -116,7 +115,7 @@ export default function TextToSVGApp() {
                     </Label>
                     <Input
                       id="prompt"
-                      placeholder="예: 미니멀한 스타일의 산과 달이 있는 풍경, 파스텔 색상, 벡터 일러스트"
+                      placeholder="예: menu, barrel, beer, bike 등"
                       value={prompt}
                       onChange={(e) => setPrompt(e.target.value)}
                       className="resize-none border-gray-200 focus:border-purple-400"
@@ -140,9 +139,6 @@ export default function TextToSVGApp() {
                           SVG 생성하기
                         </>
                       )}
-                    </Button>
-                    <Button variant="outline" size="lg" onClick={() => setShowSettings(!showSettings)} className="px-3">
-                      <Settings className="w-4 h-4" />
                     </Button>
                   </div>
                 </form>
@@ -233,11 +229,6 @@ export default function TextToSVGApp() {
             </div>
           </CardContent>
         </Card>
-
-        {/* Footer */}
-        <div className="text-center mt-12 text-gray-500 text-sm">
-          <p>handmade text2svg 모델 사용</p>
-        </div>
       </div>
     </div>
   )
